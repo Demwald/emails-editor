@@ -1,0 +1,63 @@
+:root {
+    box-sizing: border-box;
+}
+
+*,
+::before,
+::after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+}
+
+.share-form {
+    box-sizing: border-box;
+    background-color: #f5f5f5;
+    min-width: 360px;
+    font-family: 'Open Sans';
+}
+
+.share-form__editor-box {
+    padding: 29px 40px 30px;
+    background-color: #f5f5f5;
+}
+
+.share-form__actions-box {
+    background-color: #ffffff;
+    padding: 30px 40px 30px;
+}
+
+.share-form__header {
+    font-weight: normal;
+    font-size: 20px;
+    margin: 0 0 34px 0;
+}
+
+.share-form__board-name {
+    font-weight: bold;
+    letter-spacing: 0.1px;
+}
+
+.share-form__btn {
+    border: 0;
+    outline: 0;
+    background-color: #2a79ff;
+    color: #ffffff;
+    padding: 8px 16px 10px;
+    border-radius: 0.3em;
+    font-size: 13.5px;
+    letter-spacing: 0.4px;
+    word-spacing: -1px;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.share-form__btn-row .share-form__btn {
+    margin-left: 15.5px;
+}
+
+.share-form__btn-row .share-form__btn:first-child {
+    margin-left: 0;
+}
