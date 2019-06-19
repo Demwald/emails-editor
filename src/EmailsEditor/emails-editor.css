@@ -33,11 +33,11 @@
     box-sizing: border-box;
 }
 
-.emails-editor__block_edit {
+.emails-editor__block--edit {
     background-color: transparent;
 }
 
-.emails-editor__block_invalid {
+.emails-editor__block--invalid {
     background-color: transparent;
     border-radius: 0;
 }
@@ -51,7 +51,7 @@
     box-sizing: border-box;
 }
 
-.emails-editor__block_invalid .emails-editor__text-content {
+.emails-editor__block--invalid .emails-editor__text-content {
     border-bottom: 1px dashed red;
 }
 
@@ -61,7 +61,7 @@
     height: 17px;
 }
 
-.emails-editor__block_edit .emails-editor__input-content {
+.emails-editor__block--edit .emails-editor__input-content {
     width: 100%;
 }
 
@@ -76,6 +76,6 @@
     content: '\D7';
 }
 
-.emails-editor__block_edit .emails-editor__close-btn {
+.emails-editor__block--edit .emails-editor__close-btn {
     display: none;
 }

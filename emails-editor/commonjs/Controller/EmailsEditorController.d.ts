@@ -8,13 +8,14 @@ export default class EmailsEditorController {
         wrapper: HTMLDivElement;
         emailsInput: HTMLInputElement;
     });
-    listEmails(): Email[];
+    getEmails(): Email[];
     /**
      * Adds email(s) to class list of emails and to component input.
      * @param emails If the string is passed, method splits it using comma as delimeter.
      */
-    addEmails(emails: string | string[]): void;
-    removeEmail(email: Email): void;
+    addEmails(emails: string | string[], index?: number): void;
+    removeEmails(emails: (Email | string)[]): void;
+    clearEditor(): void;
     /**
      * Method to subscribe to different types of events.
      * @param event Event name. Currently 3 events are available: add, change and remove.

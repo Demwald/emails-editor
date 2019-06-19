@@ -13,9 +13,9 @@ export default class Email {
     private validateEmail() : void {
         this.valid = this.value.search(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) !== -1;
         if (this.valid) {
-            this.element.classList.remove('emails-editor__block_invalid');
+            this.element.classList.remove('emails-editor__block--invalid');
         } else {
-            this.element.classList.add('emails-editor__block_invalid');
+            this.element.classList.add('emails-editor__block--invalid');
         }
     }
 
@@ -38,12 +38,13 @@ export default class Email {
         inputContent.value = this.value;
         inputContent.addEventListener('focus', () => {
             previousValue = this.value;
-            this.element.classList.add('emails-editor__block_edit');
+            this.element.classList.remove('emails-editor__block--invalid');
+            this.element.classList.add('emails-editor__block--edit');
         });
         inputContent.addEventListener('blur', () => {
-            this.element.classList.remove('emails-editor__block_edit');
+            this.element.classList.remove('emails-editor__block--edit');
+            this.validateEmail();
             if (this.value !== previousValue) {
-                this.validateEmail();
                 changeCallback(this);
             }
         });
@@ -57,7 +58,7 @@ export default class Email {
         });
         this.element.appendChild(inputContent);
 
-        closeContainer.classList.add('emails-editor__close-btn', 'emails-editor__close-btn_show');
+        closeContainer.classList.add('emails-editor__close-btn');
         closeContainer.addEventListener('click', (e : MouseEvent) => {
             e.preventDefault();
             removeCallback(this);

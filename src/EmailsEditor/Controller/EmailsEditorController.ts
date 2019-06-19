@@ -25,7 +25,7 @@ export default class EmailsEditorController {
         });
     }
 
-    public listEmails() {
+    public getEmails() {
         return this.emails;
     }
 
@@ -33,7 +33,7 @@ export default class EmailsEditorController {
      * Adds email(s) to class list of emails and to component input.
      * @param emails If the string is passed, method splits it using comma as delimeter.
      */
-    public addEmails(emails : string | string[]) {
+    public addEmails(emails : string | string[], index?: number) {
         if (typeof emails === 'string') {
             emails = emails.replace(/,$/, '').split(',');
         }
@@ -41,14 +41,21 @@ export default class EmailsEditorController {
 
         emails.forEach((text : string) => {
             let removeCallback = (email : Email) => {
-                this.removeEmail(email);
+                this.removeEmails([email]);
             };
             let changeCallback = (email : Email) => {
                 this.emit('change', { emails: [email] });
             }
             let email = new Email({ text, removeCallback, changeCallback });
-            this.emails.push(email);
-            this.wrapper.insertBefore(email.element, this.emailsInput);
+
+            if (typeof index === 'number' && index >= 0 && index < this.emails.length) {
+                this.emails.splice(index, 0, email);
+                this.wrapper.insertBefore(email.element, this.emails[index + 1].element);
+                index++;
+            } else {
+                this.emails.push(email);
+                this.wrapper.insertBefore(email.element, this.emailsInput);
+            }
         });
 
         this.emailsInput.value = '';
@@ -65,15 +72,35 @@ export default class EmailsEditorController {
         });
     }
 
-    public removeEmail(email : Email) {
-        this.wrapper.removeChild(email.element);
-        this.emails = this.emails.filter((em) => em.value !== email.value);
+    public removeEmails(emails : (Email | string)[]) {
+        let emailsText = this.emails.map((email) => email.value);
+        emails = emails.map((email) => {
+            if (typeof email === 'string') {
+                let index = emailsText.indexOf(email);
+                return index > -1 ? this.emails[index] : null;
+            } else {
+                return email;
+            }
+        }).filter(email => email !== null);
+        
+        this.emails = this.emails.filter((em) => {
+            if (emails.indexOf(em) !== -1) {
+                this.wrapper.removeChild(em.element);
+                return false;
+            }
+            return true;
+        });
+
         this.emit('remove', {
-            emails: [email]
+            emails: emails
         });
         if (this.emails.length === 0) {
             this.emailsInput.placeholder = 'Enter email addresses...';
         }
+    }
+
+    public clearEditor() {
+        this.removeEmails(this.emails);
     }
 
     /**
