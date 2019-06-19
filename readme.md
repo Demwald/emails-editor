@@ -17,9 +17,10 @@ editor.on('change', (data) => {
 
 Name                | Info
 ------------------- | --------------------------------------------------------------------------
-addEmails           | Adds new emails to editor component input. All duplicates will be ignored and filtered. <br>Pass string with comma separated values or array to add as many emails as you want.
-removeEmail         | Removes email. Please note that as the argument it receives not index of the email but an instance of Email class.
-listEmails          | Retrieves the array of **all** emails (both valid and invalid) from input. Filter necessary type of emails using property valid.
+addEmails           | Adds new emails to editor component input. All duplicates will be ignored and filtered. <br>Pass string with comma separated values or array to add as many emails as you want. As the second argument you can pass an index to insert new emails into.
+removeEmails        | Removes email. Please note that as the argument it receives not index of the email but **array** with instances of Email class or strings.
+getEmails           | Retrieves the array of **all** emails (both valid and invalid) from input. Filter necessary type of emails using property valid.
+clearEditor         | Removes all emails from the editor.
 on                  | Subscribes to any of the events supported. Pass name of the event as the first argument and callback function as the second.
 off                 | Unsubscribes from the event specified. Pass name of the event as the first argument and callback function to exclude from observers as the second.
 
