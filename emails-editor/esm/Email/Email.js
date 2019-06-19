@@ -9,10 +9,10 @@ var Email = /** @class */ (function () {
     Email.prototype.validateEmail = function () {
         this.valid = this.value.search(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) !== -1;
         if (this.valid) {
-            this.element.classList.remove('emails-editor__block_invalid');
+            this.element.classList.remove('emails-editor__block--invalid');
         }
         else {
-            this.element.classList.add('emails-editor__block_invalid');
+            this.element.classList.add('emails-editor__block--invalid');
         }
     };
     /**
@@ -31,12 +31,13 @@ var Email = /** @class */ (function () {
         inputContent.value = this.value;
         inputContent.addEventListener('focus', function () {
             previousValue = _this.value;
-            _this.element.classList.add('emails-editor__block_edit');
+            _this.element.classList.remove('emails-editor__block--invalid');
+            _this.element.classList.add('emails-editor__block--edit');
         });
         inputContent.addEventListener('blur', function () {
-            _this.element.classList.remove('emails-editor__block_edit');
+            _this.element.classList.remove('emails-editor__block--edit');
+            _this.validateEmail();
             if (_this.value !== previousValue) {
-                _this.validateEmail();
                 changeCallback(_this);
             }
         });
@@ -49,7 +50,7 @@ var Email = /** @class */ (function () {
             textContent.innerText = _this.value;
         });
         this.element.appendChild(inputContent);
-        closeContainer.classList.add('emails-editor__close-btn', 'emails-editor__close-btn_show');
+        closeContainer.classList.add('emails-editor__close-btn');
         closeContainer.addEventListener('click', function (e) {
             e.preventDefault();
             removeCallback(_this);

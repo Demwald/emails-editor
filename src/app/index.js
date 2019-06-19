@@ -17,6 +17,6 @@ btnRandomEmail.addEventListener('click', (e) => {
 
 const btnAlertEmailsCount = document.getElementById('btn-emails-cnt-alert');
 btnAlertEmailsCount.addEventListener('click', (e) => {
-    let emailsValidTotal = editor.listEmails().filter((email) => email.valid).length;
+    let emailsValidTotal = editor.getEmails().filter((email) => email.valid).length;
     alert('Total vaild emails: ' + emailsValidTotal);
 });
